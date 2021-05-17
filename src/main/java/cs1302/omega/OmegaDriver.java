@@ -13,7 +13,7 @@ public class OmegaDriver {
      */
     public static void main(String[] args) {
         try {
-            Application.launch(OmegaApp.class, args);
+            Application.launch(ChessApp.class, args);
         } catch (UnsupportedOperationException e) {
             e.printStackTrace();
             System.err.println();
