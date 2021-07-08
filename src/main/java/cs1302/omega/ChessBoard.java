@@ -24,7 +24,7 @@ public class ChessBoard extends VBox {
     /**
      * Returns the HBox of the ChessBoard at the given index.
      */
-    public HBox getHBox(int row, int column) {
+    public Square getHBox(int row, int column) {
         return this.chessBoard[row].getHBox(column);
     } //getHBox
 

@@ -15,6 +15,8 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.stage.Stage;
 import java.util.Scanner;
+import javafx.scene.input.MouseEvent;
+import javafx.event.EventHandler;
 
 /**
  * Just creating the scene, background + chess pieces infront.
@@ -25,28 +27,8 @@ public class ChessApp extends Application {
     private ChessBoard chessBoard;
     private Image whiteTile = new Image("file:resources/whiteTile.png");
     private Image blackTile = new Image("file:resources/blackTile.png");
-    private String setUpSeed = "4 3 2 5 6 2 3 4 " +
-                               "1 1 1 1 1 1 1 1 " +
-                               "0 0 0 0 0 0 0 0 " +
-                               "0 0 0 0 0 0 0 0 " +
-                               "0 0 0 0 0 0 0 0 " +
-                               "0 0 0 0 0 0 0 0 " +
-                               "7 7 7 7 7 7 7 7 " +
-                               "10 9 8 11 12 8 9 10";
-    private Image[] pieceArray;
-    private Image empty = new Image("file:resources/empty.png");
-    private Image blackPawn = new Image("file:resources/blackPawn.png");
-    private Image blackBishop = new Image("file:resources/blackBishop.png");
-    private Image blackKnight = new Image("file:resources/blackKnight.png");
-    private Image blackRook = new Image("file:resources/blackRook.png");
-    private Image blackQueen = new Image("file:resources/blackQueen.png");
-    private Image blackKing = new Image("file:resources/blackKing.png");
-    private Image whitePawn = new Image("file:resources/whitePawn.png");
-    private Image whiteBishop = new Image("file:resources/whiteBishop.png");
-    private Image whiteKnight = new Image("file:resources/whiteKnight.png");
-    private Image whiteRook = new Image("file:resources/whiteRook.png");
-    private Image whiteQueen = new Image("file:resources/whiteQueen.png");
-    private Image whiteKing = new Image("file:resources/whiteKing.png");
+    private ChessGame game;
+    private int i = 0;
 
     /**
      * Constructs an {@code OmegaApp} object. This default (i.e., no argument)
@@ -73,12 +55,12 @@ public class ChessApp extends Application {
         stage.show();
     } //start
 
+    /**
+     * Creates the GUI board and the actual board.
+     */
     public void setupBoard() {
         this.chessBoard = new ChessBoard();
-        Scanner scanner = new Scanner(this.setUpSeed);
-        pieceArray = new Image[]{empty, blackPawn, blackBishop, blackKnight, blackRook,
-                                 blackQueen, blackKing, whitePawn, whiteBishop, whiteKnight,
-                                 whiteRook, whiteQueen, whiteKing};
+        this.game = new ChessGame();
         BackgroundImage black = new BackgroundImage(blackTile,
         BackgroundRepeat.NO_REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.CENTER,
         BackgroundSize.DEFAULT);
@@ -94,13 +76,37 @@ public class ChessApp extends Application {
             for (int j = 0; j < 8; j++, k++) {
                 if (k % 2 == 0) {
                     chessBoard.getHBox(i, j).setBackground(new Background(black));
-                    chessBoard.getImageView(i, j).setImage(whiteKing);
                 } else {
                     chessBoard.getHBox(i, j).setBackground(new Background(white));
-                    chessBoard.getImageView(i, j).setImage(whiteKing);
                 } //if
-                chessBoard.getImageView(i, j).setImage(pieceArray[scanner.nextInt()]);
+                chessBoard.getImageView(i, j).setImage(game.getImage(i, j));
+                chessBoard.getHBox(i, j).setPos(i, j);
+                setAction(chessBoard.getHBox(i, j));
             } //for
         } //for
     } //setupBoard
+
+    public void updateBoard() {
+        for (int i = 0; i < 8; i++) {
+            for (int j = 0; j < 8; j++) {
+                chessBoard.getImageView(i, j).setImage(game.getImage(i, j));
+            } //for
+        } //for
+    } //updateBoard
+
+    private void setAction(Square s) {
+        EventHandler<MouseEvent> ae = event -> {
+            if (game.getSelection() == null) {
+                game.select(s.getPosX(), s.getPosY());
+                System.out.println("Piece selected!");
+            } else if (game.getSelection().isWhite() == game.isWhitesTurn()) {
+                game.move(s.getPosX(), s.getPosY());
+                updateBoard();
+            } else {
+                game.clearSelection();
+            } //if
+            System.out.println("(" + s.getPosX() + ", " + s.getPosY() + ")");
+        };
+        s.setOnMouseClicked(ae);
+    } //setAction
 } //ChessApp

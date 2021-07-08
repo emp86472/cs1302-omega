@@ -7,7 +7,7 @@ import javafx.scene.image.ImageView;
 public class ChessRow extends HBox {
 
     private ImageView[] imageViewArray;
-    private HBox[] hBoxArray;
+    private Square[] hBoxArray;
 
     /**
      * Constructs an instance of ChessRow. A ChessRow is an array
@@ -16,10 +16,10 @@ public class ChessRow extends HBox {
     public ChessRow() {
         super();
         imageViewArray = new ImageView[8];
-        hBoxArray = new HBox[8];
+        hBoxArray = new Square[8];
         for (int i = 0; i < imageViewArray.length; i++) {
             imageViewArray[i] = new ImageView();
-            hBoxArray[i] = new HBox();
+            hBoxArray[i] = new Square();
             hBoxArray[i].getChildren().add(imageViewArray[i]);
             this.getChildren().add(hBoxArray[i]);
         } //for
@@ -28,7 +28,7 @@ public class ChessRow extends HBox {
     /**
      * Returns the HBox of the ChessRow at the given index.
      */
-    public HBox getHBox(int index) {
+    public Square getHBox(int index) {
         return this.hBoxArray[index];
     } //getHBox
     /**
