@@ -243,4 +243,12 @@ public class ChessGame {
         }
         return new Image("file:resources/empty.png");
     } //getImage
+
+    /**
+     * Used on any King GamePiece. Returns true if the king at the given
+     * coordinates is in check.
+     */
+    private boolean isInCheck(int x, int y) {
+        return true;
+    } //isInCheck
 } //ChessGame

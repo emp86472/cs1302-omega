@@ -10,6 +10,7 @@ public class Queen extends GamePiece {
      */
     public Queen(String s) {
         super();
+        this.setName("queen");
         this.setBlockable(true);
         this.setAlignment(s);
     } //Queen

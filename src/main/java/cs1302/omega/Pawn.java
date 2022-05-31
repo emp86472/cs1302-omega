@@ -10,6 +10,7 @@ public class Pawn extends GamePiece {
      */
     public Pawn(String s) {
         super();
+        this.setName("pawn");
         this.setBlockable(true);
         this.setAlignment(s);
     } //Pawn

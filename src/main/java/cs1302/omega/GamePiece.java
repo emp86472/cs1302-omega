@@ -11,6 +11,7 @@ public abstract class GamePiece {
     private int posY;
     private boolean isWhite;
     private boolean isBlockable;
+    private String name;
 
     //the GamePiece's associated image
     private Image pieceImage;
@@ -51,6 +52,20 @@ public abstract class GamePiece {
     public boolean isWhite() {
         return isWhite;
     } //isWhite
+
+    /**
+     * Sets the name of the GamePiece.
+     */
+    public void setName(String s) {
+        this.name = s;
+    } //setName
+
+    /**
+     * Returns the name of the GamePiece.
+     */
+    public String getName() {
+        return this.name;
+    } //getName
 
     /**
      * Sets the image of the GamePiece

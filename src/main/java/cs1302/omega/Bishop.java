@@ -11,6 +11,7 @@ public class Bishop extends Queen {
      */
     public Bishop(String s) {
         super(s);
+        this.setName("bishop");
         this.setAlignment(s);
     } //Bishop
 

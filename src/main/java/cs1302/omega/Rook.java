@@ -11,6 +11,7 @@ public class Rook extends Queen {
      */
     public Rook(String s) {
         super(s);
+        this.setName("rook");
         this.setAlignment(s);
     } //Rook
 

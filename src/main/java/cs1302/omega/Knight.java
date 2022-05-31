@@ -10,6 +10,7 @@ public class Knight extends GamePiece {
      */
     public Knight(String s) {
         super();
+        this.setName("knight");
         this.setBlockable(false);
         this.setAlignment(s);
     } //Knight
